@@ -47,6 +47,8 @@ app.get("/", (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "Welcome to My Developer Assessment Solution",
+    linkToPostman: "https://documenter.getpostman.com/view/22751768/2s8Z76uU8e",
+    ps: "Kindly replace 'http://localhost:4000' with 'https://food-court-eswk.onrender.com' in the postman collection if you would like to test using the live link",
   });
 });
 
