@@ -12,10 +12,8 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
+app.use(morgan("dev"));
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 app.use(helmet());
 
 app.use(
@@ -24,6 +22,7 @@ app.use(
     credentials: true,
   })
 );
+
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
@@ -40,6 +39,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json({ limit: "10kb" }));
 
+// Routes
 app.use("/brands", brandRouter);
 app.use("/users", userRouter);
 
@@ -56,6 +56,7 @@ app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-app.use(globalErrorHandler); // Error handling middleware;
+// Error handling middleware;
+app.use(globalErrorHandler);
 
 module.exports = app;
